@@ -19,7 +19,7 @@ COLUMN_BLACKLIST = set([
     'sync_uid',
     'getId',
     'getRemoteUrl',
-    'location',
+    #'location',
     'portal_type',
     'expires',
     'last_comment_date',
