@@ -4,7 +4,7 @@ from collective.z3cform.datagridfield.registry import DictRow
 from collective.z3cform.datagridfield.interfaces import AttributeNotFoundError
 from plone.registry import field
 from z3c.form.interfaces import NO_VALUE
-from zope.interface import Interface, implements
+from zope.interface import Interface, implementer
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope import schema
 
@@ -31,8 +31,8 @@ class IValueConverter(Interface):
 
 
 # A DictRow is an IDict for import/export purposes
+@implementer(schema.interfaces.IDict)
 class ImportableTextDictRow(DictRow, schema.MinMaxLen):
-    implements(schema.interfaces.IDict)
     # We treat all values as text for simplicity of import/export.
     # Unfortunately, non-text values will result in duplicates when
     # purge="False"

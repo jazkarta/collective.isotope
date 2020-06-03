@@ -50,7 +50,7 @@ class MetadataColumnVocabulary(object):
         portal_catalog = api.portal.get_tool('portal_catalog')
         column_name_set = set(portal_catalog.schema())
         possible = column_name_set - self.blacklist
-        items = sorted([(name.decode('utf8'), name) for name in possible])
+        items = sorted([(name, name) for name in possible])
         return SimpleVocabulary.fromItems(items)
 
 FriendlyColumnVocabularyFactory = MetadataColumnVocabulary(COLUMN_BLACKLIST)

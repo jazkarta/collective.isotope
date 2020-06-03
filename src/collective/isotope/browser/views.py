@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Browser views"""
+from builtins import map
 import collections
-from itertools import chain, imap, izip, ifilter
+from itertools import chain
 import json
 # from plone import api
 from plone.app.contenttypes.browser.collection import CollectionView
@@ -10,6 +11,7 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.registry.interfaces import IRegistry
 from plone.z3cform.layout import wrap_form
 from Products.statusmessages.interfaces import IStatusMessage
+import six
 from z3c.form import form, field, button
 from zope.annotation.interfaces import IAnnotations, IAttributeAnnotatable
 from zope.cachedescriptors.property import Lazy as lazy_property
@@ -76,7 +78,7 @@ def itemize(value):
         one at a time
     If value is a dict type, return the keys one at a time
     """
-    if (not isinstance(value, basestring) and
+    if (not isinstance(value, six.string_types) and
             isinstance(value, collections.Iterable)):
         for item in value:
             yield item
@@ -216,12 +218,13 @@ class IsotopeViewMixin(object):
         converter = queryUtility(
             IValueConverter, name=converter_name, default=None
         )
-        values = imap(self.normalizer.normalize, raw)
+        values = map(self.normalizer.normalize, raw)
         labels = raw
         if converter:
-            labels = imap(converter, raw)
+            labels = map(converter, raw)
 
-        return ifilter(lambda x: x[1], izip(values, labels))
+        #return filter(lambda x: x[1], zip(values, labels))
+        return (x for x in zip(values, labels) if x[1])
 
 
 class IsotopeCollectionView(IsotopeViewMixin, CollectionView):
