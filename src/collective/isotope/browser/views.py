@@ -84,7 +84,6 @@ def itemize(value):
             yield item
     else:
         yield value
-    raise StopIteration
 
 
 class IsotopeViewMixin(object):
