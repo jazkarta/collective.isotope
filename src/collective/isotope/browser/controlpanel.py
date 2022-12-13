@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from collective.z3cform.datagridfield import DataGridFieldFactory
+try:
+    from collective.z3cform.datagridfield import DataGridFieldFactory
+except ImportError:
+    from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from plone.app.registry.browser import controlpanel
 
 
